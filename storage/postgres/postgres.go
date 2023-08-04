@@ -11,11 +11,13 @@ import (
 )
 
 type store struct {
-	db       *pgxpool.Pool
-	category *categoryRepo
-	product  *productRepo
-	market   *marketRepo
-	user     storage.UserRepoI
+	db          *pgxpool.Pool
+	category    *categoryRepo
+	product     *productRepo
+	market      *marketRepo
+	user        storage.UserRepoI
+	saleProduct *salesProductRepo
+	sale        *saleRepo
 }
 
 func NewConnectionPostgres(cfg *config.Config) (storage.StorageI, error) {
@@ -80,4 +82,17 @@ func (s *store) User() storage.UserRepoI {
 	}
 
 	return s.user
+}
+
+func (s *store) SaleProduct() storage.SaleProductRepoI {
+	if s.saleProduct == nil {
+		s.saleProduct = NewSalesProductRepo(s.db)
+	}
+	return s.saleProduct
+}
+func (s *store) Sale() storage.SaleRepoI {
+	if s.sale == nil {
+		s.sale = NewSalesRepo(s.db)
+	}
+	return s.sale
 }

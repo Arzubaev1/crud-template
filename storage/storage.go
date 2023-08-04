@@ -11,6 +11,8 @@ type StorageI interface {
 	Product() ProductRepoI
 	Market() MarketRepoI
 	User() UserRepoI
+	SaleProduct() SaleProductRepoI
+	Sale() SaleRepoI
 }
 
 type CategoryRepoI interface {
@@ -44,4 +46,12 @@ type UserRepoI interface {
 	GetList(ctx context.Context, req *models.GetListUserRequest) (resp *models.GetListUserResponse, err error)
 	Update(ctx context.Context, req *models.UpdateUser) (int64, error)
 	Delete(ctx context.Context, req *models.UserPrimaryKey) (int64, error)
+}
+type SaleProductRepoI interface {
+	Create(ctx context.Context, req *models.CreateSaleProduct) (string, error)
+	GetByID(ctx context.Context, req *models.SaleProductPrimaryKey) (*models.SaleProduct, error)
+}
+type SaleRepoI interface {
+	GetByID(ctx context.Context, req *models.SalePrimaryKey) (*models.Sale, error)
+	GetList(ctx context.Context, req *models.SaleRequest) (*models.SaleResponse, error)
 }

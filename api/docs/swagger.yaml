@@ -38,6 +38,17 @@ definitions:
       price:
         type: number
     type: object
+  models.CreateSaleProduct:
+    properties:
+      count:
+        type: number
+      discount:
+        type: number
+      discount_type:
+        type: string
+      product_id:
+        type: string
+    type: object
   models.CreateUser:
     properties:
       first_name:
@@ -725,6 +736,143 @@ paths:
       summary: Register
       tags:
       - Register
+  /sale:
+    get:
+      consumes:
+      - application/json
+      description: Get List Sale
+      operationId: get_list_sale
+      parameters:
+      - description: offset
+        in: query
+        name: offset
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        type: string
+      - description: search
+        in: query
+        name: search
+        type: string
+      responses:
+        "200":
+          description: Success Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get List Sale
+      tags:
+      - Sale
+  /sale/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get By ID Sale
+      operationId: get_by_id_sale
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Success Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Get By ID Sale
+      tags:
+      - Sale
+  /saleProduct:
+    post:
+      consumes:
+      - application/json
+      description: Create saleProduct
+      operationId: create_saleProduct
+      parameters:
+      - description: CreateSaleProductRequest
+        in: body
+        name: saleProduct
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateSaleProduct'
+      responses:
+        "200":
+          description: Success Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+        "500":
+          description: Server error
+          schema:
+            allOf:
+            - $ref: '#/definitions/handler.Response'
+            - properties:
+                data:
+                  type: string
+              type: object
+      summary: Create saleProduct
+      tags:
+      - saleProduct
   /user:
     get:
       consumes:
